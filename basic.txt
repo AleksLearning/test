@@ -1,4 +1,1 @@
-Editing this txt document to trigger a push event.
-
-Let this be secont edit for the same push event.
-This will be two different commits.
+This repo has a main and dev branch.

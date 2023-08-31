@@ -1,0 +1,38 @@
+name: 'Find Java from POM.xml file'
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get Java version
+        id: java-version
+        run: |
+          if [ -f "pom.xml" ]; then
+            JAVA_VERSION=$(grep -o '<java.version>[^<]*</java.version>' pom.xml | sed -e 's/<java.version>\(.*\)<\/java.version>/\1/')
+            echo "JAVA_VERSION=$JAVA_VERSION" >> $GITHUB_ENV
+          else
+            echo "POM.XML file not found. Unable to determine Java version."
+            exit 1
+          fi
+
+      - name: Set up Java
+        if: env.JAVA_VERSION
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Say bye
+        run: echo "Bye"

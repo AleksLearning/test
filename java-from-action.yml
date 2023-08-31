@@ -1,0 +1,30 @@
+name: 'Find Java with action' 
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: "Read Java Info"
+        id: "java_info"
+        uses: YunaBraska/java-info-action@1.11.0  #this is the latest versiojn as of 8 August 2023
+    
+      - name: "Setup Java"
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ steps.java_info.outputs.java_version }}
+      
+      - name: "Say bye"
+        run: echo "Bye"
