@@ -9,14 +9,21 @@ on:
         default: 'files'
       
 jobs:
-  hello_world_job:
+  Hello-Bye-Job:
     runs-on: ubuntu-latest
     name: A job to say hello
 
     steps:
-      - name: Say hello
+      - name: Be polite
         run: echo 'Hello'
+      - name: Say Bye
+        run: echo 'Bye'
         
+  File-operations-Job:
+    runs-on: ubuntu-latest
+    name: A job to display changed files
+    
+    steps:
       - name: Print Changed Files
         run: |
           IFS=',' read -ra CHANGED_FILES <<< "${{ github.event.inputs.changed-files }}"
