@@ -2,6 +2,10 @@ name: 'Basic workflow'
 
 on:
   workflow_dispatch:
+    inputs:
+      changed-files:
+        description: 'Comma-separated list of changed files'
+        required: true
       
 jobs:
   hello_world_job:
@@ -9,5 +13,12 @@ jobs:
     name: A job to say hello
 
     steps:
-      - name: Say Hello
+      - name: Say hello
         run: echo 'Hello'
+        
+      - name: Print Changed Files
+        run: |
+          IFS=',' read -ra CHANGED_FILES <<< "${{ github.event.inputs.changed-files }}"
+          for file in "${CHANGED_FILES[@]}"; do
+            echo "Changed File: $file"
+          done
