@@ -1,0 +1,36 @@
+name: 'Greeter workflow'
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Who to greet'
+        required: true
+        default: 'World'
+      
+      
+jobs:
+  Be-polite-Job:
+    runs-on: ubuntu-latest
+    name: A job to say hello and bye
+
+    steps:
+      - name: Say Hello
+        run: echo 'Hello'
+      - name: Say Bye
+        run: echo 'Bye'
+        
+  Personal-greeting-Job:
+    runs-on: ubuntu-latest
+    name: A job to greet the user
+    
+    steps:
+      - name: Run greeting action
+        id: run-greet
+        uses: AleksandraAleksandrova/jar-runner-action@main
+        with:
+          name: ${{ github.event.inputs.name }}
+
+      - name: Print Greet Output
+        run: echo "Greet Output: ${{ steps.run-greet.outputs.jar-output }}"
+      
