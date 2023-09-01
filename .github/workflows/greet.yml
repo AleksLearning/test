@@ -32,5 +32,5 @@ jobs:
           name: ${{ github.event.inputs.name }}
 
       - name: Print Greet Output
-        run: echo "Greet Output: ${{ steps.run-greet.outputs.jar-output }}"
+        run: echo "Greet Output:${{ steps.run-greet.outputs.jar-output }}"
       
