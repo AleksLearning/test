@@ -35,5 +35,3 @@ jobs:
       - name: Print Greet Output
         run: echo "Greet Output:${{ steps.run-greet-read-files.outputs.greeting }}"
 
-      - name: Print Files Output
-        run: echo "Files Output:${{ steps.run-greet-read-files.outputs.files-contents }}"
