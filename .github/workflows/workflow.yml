@@ -6,31 +6,31 @@ on:
       name:
         description: 'The username of the person, who opened the pull request'
         required: true
-        default: 'user'
       changed-files:
-        description: 'Comma-separated list of changed files'
+        description: 'List of changed files'
         required: false
-        default: 'files'
       
 jobs:
-  Hello-Bye-Job:
+  Greet-and-Print-Files-Job:
     runs-on: ubuntu-latest
-    name: A job to say hello
-
-    steps:
-      - name: Be polite
-        run: echo 'Hello'
-      - name: Say Bye
-        run: echo 'Bye'
-        
-  File-operations-Job:
-    runs-on: ubuntu-latest
-    name: A job to display changed files
+    name: A job to greet the user and display changed files
     
     steps:
-      - name: Print Changed Files
-        run: |
-          IFS=',' read -ra CHANGED_FILES <<< "${{ github.event.inputs.changed-files }}"
-          for file in "${CHANGED_FILES[@]}"; do
-            echo "Changed File: $file"
-          done
+      - name: Setup java 
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Greet and get files contents
+        id: run-greet-read-files
+        uses: AleksandraAleksandrova/jar-runner-action@main
+        with:
+          name: ${{ github.event.inputs.name }}
+          changed-files: ${{ github.event.inputs.changed-files }}
+
+      - name: Print Greet Output
+        run: echo "Greet Output:${{ steps.run-greet-read-files.outputs.greeting }}"
+
+      - name: Print Files Output
+        run: echo "Files Output:${{ steps.run-greet-read-files.outputs.files-contents }}"
