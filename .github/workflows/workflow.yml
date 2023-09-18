@@ -3,6 +3,10 @@ name: 'Basic workflow'
 on:
   workflow_dispatch:
     inputs:
+      name:
+        description: 'The username of the person, who opened the pull request'
+        required: true
+        default: 'user'
       changed-files:
         description: 'Comma-separated list of changed files'
         required: false
