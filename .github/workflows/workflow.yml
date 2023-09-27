@@ -9,6 +9,9 @@ on:
       changed-files:
         description: 'List of changed files'
         required: false
+      diff-content:
+        description: 'Diff content'
+        required: true
       
 jobs:
   Greet-and-Print-Files-Job:
