@@ -38,7 +38,7 @@ jobs:
       - name: Print Greet Output
         run: echo "Greet Output:${{ steps.run-greet-read-files.outputs.greeting }}"
 
-      - name: Create custom annotation warning
-        run: echo "::warning file=basic.txt,line=1,col=35,endColumn=37::Missing point at the end of the sentence"
+      - name: Print git diff content
+        run: echo "${{ github.event.inputs.diff-content }}"
 
 
